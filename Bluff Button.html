@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate Unlocker</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; margin: 0; }
+        .container { text-align: center; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 400px; }
+        #phrase { font-size: 1.2rem; color: #333; margin-bottom: 1.5rem; min-height: 3em; display: flex; align-items: center; justify-content: center; }
+        button { background-color: #007bff; color: white; border: none; padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: background 0.2s; }
+        button:hover { background-color: #0056b3; }
+        .coords { font-weight: bold; color: #28a745; font-size: 1.4rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="phrase">Press the button to reveal the coordinates!</div>
+    <button onclick="getPhrase()">Generate</button>
+</div>
+
+<script>
+    let clickCount = 0;
+    const bluffs = [
+        "Sorry, I'm just bluffing, but press the button again and it will give you the coordinates",
+        "Ha, tricked you again. Trust me, press the button again",
+        "Keep trying!",
+        "Bluffing is my specialty",
+        "Oops! Not yet, but the next one might be it",
+        "Almost! Press again for a real surprise",
+        "Haha, fooled you! Press the button again",
+        "Bluff alert! Try once more",
+        "Not quite! The coordinates are hiding",
+        "Patience! Press the button again",
+        "Just kidding! Keep pressing",
+        "Fooled you again! Give it another go",
+        "Keep your hopes high, press again",
+        "Bluff master at work! Try again",
+        "One more press might do it..."
+    ];
+
+    function getPhrase() {
+        clickCount++;
+        const display = document.getElementById('phrase');
+        
+        // Ensure they click at least 10 times before the coordinates show up
+        // Adjust the '10' to make it harder or easier.
+        const chance = Math.random();
+        
+        if (clickCount > 10 && chance > 0.8) {
+            display.innerHTML = "<span class='coords'>Congrats, here are the coordinates!<br>N42° 01.143 W88° 15.556</span>";
+            document.querySelector('button').style.display = 'none';
+        } else {
+            const randomIndex = Math.floor(Math.random() * bluffs.length);
+            display.innerText = bluffs[randomIndex];
+        }
+    }
+</script>
+
+</body>
+</html>
+
